@@ -1,0 +1,12 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "dev": "NODE_ENV=dev webpack",
+    "prod": "NODE_ENV=prod webpack"
+  },
+  "author": "",
+  "license": "ISC"
+}
