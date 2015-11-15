@@ -1,26 +1,31 @@
 import $ from 'jQuery'
 import Backbone from 'Backbone'
 
-import View  from './view.js'
-import Model from './model.js'
-import jedi  from './request.js'
+import {col, colView} from './collection.js'
 
-let listModel = new Model();
-let listView = new View({
-	model: listModel,
-	el: '.js-planets-list'
-});
+col.add([
+	{name: "Летучий Голландец"},
+	{name: "Летучий Голландец1"},
+	{name: "Летучий Голландец2"},
+	{name: "Летучий Голландец3"},
+	{name: "Летучий Голландец4"},
+	{name: "Черная жемчужина"}
+]);
 
-jedi.request('', function (data) {
+// col.remove(col.at(1));
+// col.remove(col.at(1));
 
-	console.log('data', data.apprentice.id);
-
-	let _list = listModel.get('list').slice();
-	_list.push({
-		name: data.name,
-		planet: data.homeworld.name
-	});
-
-	listModel.set({'list': _list});
-
-});
+// import jedi  from './request.js'
+// jedi.request('', function (data) {
+//
+// 	console.log('data', data.apprentice.id);
+//
+// 	let _list = listModel.get('list').slice();
+// 	_list.push({
+// 		name: data.name,
+// 		planet: data.homeworld.name
+// 	});
+//
+// 	listModel.set({'list': _list});
+//
+// });

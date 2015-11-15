@@ -9,6 +9,7 @@ export default {
 		});
 
 		requests.push(_get);
+		return _get;
 	},
 	cancelLast: function () {
 		let _get = requests.shift();
