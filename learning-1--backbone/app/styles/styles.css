@@ -1,16 +1,12 @@
-html,
-body {
-	height: 100%;
-}
-
 body {
 	font-family: Lucida Console, Monaco5, monospace;
 	background: #1b3061;
 	margin: 0;
+	padding: 36px;
 }
 
 .css-root {
-	margin: 36px auto;
+	margin: 0 auto;
 	max-width: 800px;
 	min-width: 640px;
 	border-radius: 2px;

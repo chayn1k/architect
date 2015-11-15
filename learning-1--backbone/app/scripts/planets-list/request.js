@@ -1,4 +1,4 @@
-import $ from '../node_modules/jquery/dist/jquery'
+import $ from 'jQuery'
 
 var requests = [];
 
@@ -10,8 +10,14 @@ export default {
 
 		requests.push(_get);
 	},
-	cancelAll: function () {
+	cancelLast: function () {
 		let _get = requests.shift();
 		_get.abort();
+	},
+	cancelAll: function () {
+		requests.forEach((i) => {
+			i.abort();
+		});
+		requests = [];
 	}
 }

@@ -1,6 +1,7 @@
 // import jedi from './request_jedis'
 // import planet from './planet'
 import currentPlanet from './current-planet/controller.js'
+import planetsList from './planets-list/controller.js'
 
 if (NODE_ENV == "dev") {
 	console.log('NODE_ENV', NODE_ENV)
