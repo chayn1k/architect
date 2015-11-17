@@ -9,8 +9,6 @@ let PlanetView = Backbone.View.extend({
 
 	render: function() {
 		let model = this.model.attributes
-		console.log('this.model', model);
-
 		this.$el.html(model.name);
 	}
 

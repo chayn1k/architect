@@ -1,5 +1,5 @@
-// import jedi from './request_jedis'
-// import planet from './planet'
+import "babel-polyfill"
+
 import currentPlanet from './current-planet/controller.js'
 import planetsList from './planets-list/controller.js'
 
@@ -7,8 +7,5 @@ if (NODE_ENV == "dev") {
 	console.log('NODE_ENV', NODE_ENV)
 }
 
-// jedi.request('3616', function(data) {
-// 	console.log("Получены данные " + data);
-// });
-
+// экспорт в глобальную область видимости
 // exports.test = test;

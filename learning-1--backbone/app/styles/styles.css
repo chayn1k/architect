@@ -65,6 +65,7 @@ body {
 }
 
 .css-scroll-buttons button {
+	cursor: pointer;
 	flex: 1;
 	border: 5px solid #69F0D2;
 	border-radius: 2px;
@@ -92,6 +93,8 @@ body {
 	text-shadow: 0px 0px 10px #69F0D2;
 }
 
-.css-button-disabled {
-	opacity: 0.5;
+.css-button-up:disabled,
+.css-button-down:disabled {
+	opacity: .5;
+	cursor: default;
 }

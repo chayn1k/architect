@@ -7,17 +7,23 @@ var SithCollectionView = Backbone.View.extend({
 		this._sithViews = [];
 		this.max = 5;
 
-		this.listenTo(this.collection, "change add remove reset", this.preRender);
-		this.render();
+		this.listenTo(this.collection, "all", this.preRender);
+		this.listenTo(this.collection, "add", this.add);
+
+		this.preRender();
+	},
+
+	add: function () {
+		this.collection.sort();
 	},
 
 	preRender: function () {
 		this._sithViews = [];
+
 		this.collection.each((model, iterator) => {
-			if (iterator < 5) {
-				this._sithViews.push(new itemView({ model: model }));
-			}
+			this._sithViews.push(new itemView({ model: model }));
 		});
+
 		this.render();
 	},
 

@@ -2,8 +2,11 @@ import Backbone from 'Backbone'
 
 var itemModel = Backbone.Model.extend({
 	defaults: {
-		name: '...',
-		planet: '...'
+		name: '',
+		planet: '',
+		id: '',
+		masterId: '',
+		apprenticeId: ''
 	}
 });
 

@@ -4,7 +4,9 @@ const NODE_ENV = process.env.NODE_ENV || 'dev';
 const webpack = require('webpack');
 
 module.exports = {
-	entry: "./scripts/main",
+	entry: [
+		'./scripts/main'
+	],
 	output: {
 		path: __dirname,
 		filename: "build.js",
@@ -36,8 +38,19 @@ module.exports = {
 	module: {
 		loaders: [{
 			test: /\.js$/,
-			loader: 'babel?presets[]=es2015﻿'
+			loader: 'babel',
+			exclude: /(node_modules|bower_components)/,
+			query: {
+				presets: ['es2015', 'stage-0']
+			}
 		}]
+	},
+
+	noParse: /babel/,
+
+	devServer: {
+		port: 5000,
+		hot: true
 	}
 }
 
