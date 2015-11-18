@@ -8,14 +8,12 @@ let Collection = Backbone.Collection.extend({
 
 	comparator: function(itemA, itemB) {
 		var a = itemA.get('id');
-		var b = itemB.get('masterId');
+		var b = itemB.get('master').id;
 
+		// сортировка мастер - ученик
 		if (a == b) return -1;
 
-		// if (a != '' && b == '') return 0;
-		if (a == '' || b == '') return 0;
-
-		return 1;
+		return 0;
 	},
 });
 

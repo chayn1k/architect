@@ -12,20 +12,11 @@ export default {
 		requests.push(_get);
 		return _get;
 	},
-	toJSON: function (model) {
-		return {
-			name: model.name,
-			planet: model.homeworld.name,
-			id: model.id,
-			masterId: model.master.id,
-			apprenticeId: model.apprentice.id
-		}
-	},
 	requestMaster: function (model) {
-		return this.request(model.masterId || (model.master && model.master.id));
+		return this.request(model.master.id);
 	},
 	requestApprentice: function (model) {
-		return this.request(model.apprenticeId || (model.apprentice && model.apprentice.id));
+		return this.request(model.apprentice.id);
 	},
 	cancelAll: function () {
 		requests.forEach((item) => {

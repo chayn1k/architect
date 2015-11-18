@@ -1,67 +1,64 @@
 import $ from 'jQuery'
+import ev from './../utils/events.js'
+import utils from '../utils/utils.js'
 
 export default {
-	init: function (col, make, stop) {
+	init: function (col) {
 		this.col = col;
-		this.make = make;
-		this.stop = stop;
 
-		$('.js-up').on('click', this.up.bind(this));
-		$('.js-down').on('click', this.down.bind(this));
+		this.$up = $('.js-up');
+		this.$down = $('.js-down');
+
+		this.$up.on('click', this.up.bind(this));
+		this.$down.on('click', this.down.bind(this));
 
 		this.col.on("add", this.checkButtons.bind(this));
+
+		ev.on('arrows:check', this.checkButtons.bind(this));
 	},
 	up: function () {
 		this.col.pop();
 		this.col.pop();
 		this.col.add([ {}, {} ], {at: 0});
 
-		this.stop();
-		this.make();
+		ev.trigger('arrow:up');
 	},
 	down: function () {
 		this.col.shift();
 		this.col.shift();
 		this.col.add([ {}, {} ]);
 
-		this.stop();
-		this.make();
+		ev.trigger('arrow:down');
 	},
 	checkButtons: function () {
-		let filledItems = this.col.filter((item) => {
-			return (item.attributes && item.attributes.id !== '');
-		});
+		let [ first, firstIndex, last, lastIndex ] = utils.collectionInfo( this.col )
 
-		if (filledItems.length <= 1) {
-			this.disable('none');
-			return;
-		}
+		this.disable('none');
 
-		let first = filledItems[0];
-		let last = filledItems[filledItems.length - 1];
+		if (!first || !last) return;
 
-		if (first.attributes.masterId === null &&
-			last.attributes.apprenticeId === null) this.disable('all');
-		else if (first.attributes.masterId === null) this.disable('top');
-		else if (last.attributes.apprenticeId === null) this.disable('bot');
-		else this.disable('none');
+		if (first.attributes.master.id === null &&
+			last.attributes.apprentice.id === null) this.disable('all');
+		else if (this.col.where({ highlight: true }).length) this.disable('all');
+		else if (first.attributes.master.id === null) this.disable('top');
+		else if (last.attributes.apprentice.id === null) this.disable('bot');
 
 	},
 	disable: function (what) {
 		switch (what) {
 			case 'top':
-				$('.js-up').prop( 'disabled', true );
+				this.$up.prop( 'disabled', true );
 				break;
 			case 'bot':
-				$('.js-down').prop( 'disabled', true );
+				this.$down.prop( 'disabled', true );
 				break;
 			case 'all':
-				$('.js-up').prop( 'disabled', true );
-				$('.js-down').prop( 'disabled', true );
+				this.$up.prop( 'disabled', true );
+				this.$down.prop( 'disabled', true );
 				break;
 			default:
-				$('.js-up').prop( 'disabled', false );
-				$('.js-down').prop( 'disabled', false );
+				this.$up.prop( 'disabled', false );
+				this.$down.prop( 'disabled', false );
 		}
 	}
 }

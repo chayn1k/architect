@@ -47,6 +47,10 @@ body {
 	height: 1.7em;
 }
 
+.red {
+	color: #c00;
+}
+
 .css-slot h3,
 .css-slot h4,
 .css-slot h5,

@@ -1,31 +1,35 @@
 import jedi from './jedi.js'
+import utils from '../utils/utils.js'
+import ev from './../utils/events.js'
 
-function colInfo(col) {
-	let filledItems = col.filter((item) => {
-		return item.attributes.id !== '';
-	});
-
-	let first = filledItems[0];
-	let firstIndex = col.indexOf(first);
-	let last = filledItems[filledItems.length - 1];
-	let lastIndex = col.indexOf(last);
-
-	return [first, firstIndex, last, lastIndex]
-}
 
 export default {
 	col: null,
 	init: function (col) {
 		this.col = col;
+		this.eventsSubscribe();
 		return this;
 	},
+	eventsSubscribe: function () {
+		let fn = () => {
+			this.stop();
+			this.make();
+		}
+
+		ev.on('step:make', this.make.bind(this));
+		ev.on('step:stop', this.stop.bind(this));
+
+		ev.on('arrow:up', fn);
+		ev.on('arrow:down', fn);
+	},
 	state: function () {
-		if (this.col.where({id: ''}).length == 5) return 'none';
-		if (this.col.where({id: ''}).length == 0) return 'full';
+		if (this.col.where({id: null}).length == 5) return 'none';
+		if (this.col.where({id: null}).length == 0) return 'full';
 
 		let tmp = ''
-		if (this.col.at(0).attributes.id === '') tmp += 'top'
-		if (this.col.at(4).attributes.id === '') tmp += 'bot'
+		if (this.col.at(0).attributes.id === null) tmp += 'top'
+		if (this.col.at(4).attributes.id === null) tmp += 'bot'
+
 		return tmp == 'topbot' ? 'both' : tmp;
 	},
 	make: function () {
@@ -44,7 +48,7 @@ export default {
 
 		req.then((data) => {
 			this.col.shift();
-			this.col.add([ jedi.toJSON(data) ], {at: 2});
+			this.col.add([ data ], {at: 2});
 
 			this.make();
 		});
@@ -60,28 +64,28 @@ export default {
 	},
 
 	loadTop: function (wait = false) {
-		let [ first, firstIndex, last, lastIndex ] = colInfo( this.col )
-		if (first.attributes.masterId == null) return;
+		let [ first, firstIndex, last, lastIndex ] = utils.collectionInfo( this.col )
+		if (first.attributes.master.id == null) return;
 
 		let firstReq = jedi.requestMaster(first.attributes);
 
 		return firstReq.then((data) => {
 			this.col.shift();
-			this.col.add([ jedi.toJSON(data) ], {at: firstIndex - 1});
+			this.col.add([ data ], {at: firstIndex - 1});
 
 			if (!wait) this.make();
 		});
 	},
 
 	loadBot: function (wait = false) {
-		let [ first, firstIndex, last, lastIndex ] = colInfo( this.col )
-		if (last.attributes.apprenticeId == null) return;
+		let [ first, firstIndex, last, lastIndex ] = utils.collectionInfo( this.col )
+		if (last.attributes.apprentice.id == null) return;
 
 		let lastReq = jedi.requestApprentice(last.attributes);
 
 		return lastReq.then((data) => {
 			this.col.pop();
-			this.col.add([ jedi.toJSON(data) ], {at: lastIndex + 1});
+			this.col.add([ data ], {at: lastIndex + 1});
 
 			if (!wait) this.make();
 		});
