@@ -9,12 +9,12 @@ export default {
 		this.$up = $('.js-up');
 		this.$down = $('.js-down');
 
-		this.$up.on('click', this.up.bind(this));
-		this.$down.on('click', this.down.bind(this));
+		this.$up.on('click', ::this.up);
+		this.$down.on('click', ::this.down);
 
-		this.col.on("add", this.checkButtons.bind(this));
+		this.col.on("add", ::this.checkButtons);
 
-		ev.on('arrows:check', this.checkButtons.bind(this));
+		ev.on('arrows:check', ::this.checkButtons);
 	},
 	up() {
 		this.col.pop();

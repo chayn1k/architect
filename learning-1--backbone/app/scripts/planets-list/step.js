@@ -16,8 +16,8 @@ export default {
 			this.make();
 		}
 
-		ev.on('step:make', this.make.bind(this));
-		ev.on('step:stop', this.stop.bind(this));
+		ev.on('step:make', ::this.make);
+		ev.on('step:stop', ::this.stop);
 
 		ev.on('arrow:up', fn);
 		ev.on('arrow:down', fn);

@@ -9,7 +9,7 @@ export default {
 		return this;
 	},
 	subscribe() {
-		ev.on("change-planet update-jedi-list", this.updatePlanet.bind(this));
+		ev.on("change-planet update-jedi-list", ::this.updatePlanet);
 	},
 	findCombination(name) {
 		return this.col.filter((item) => {
