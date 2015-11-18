@@ -5,12 +5,12 @@ import ev from './../utils/events.js'
 
 export default {
 	col: null,
-	init: function (col) {
+	init(col) {
 		this.col = col;
 		this.eventsSubscribe();
 		return this;
 	},
-	eventsSubscribe: function () {
+	eventsSubscribe() {
 		let fn = () => {
 			this.stop();
 			this.make();
@@ -22,7 +22,7 @@ export default {
 		ev.on('arrow:up', fn);
 		ev.on('arrow:down', fn);
 	},
-	state: function () {
+	state() {
 		if (this.col.where({id: null}).length == 5) return 'none';
 		if (this.col.where({id: null}).length == 0) return 'full';
 
@@ -32,7 +32,7 @@ export default {
 
 		return tmp == 'topbot' ? 'both' : tmp;
 	},
-	make: function () {
+	make() {
 		let dir = this.state();
 		if (dir == 'full') return;
 
@@ -43,7 +43,7 @@ export default {
 		if (dir == 'bot') this.loadBot();
 	},
 
-	loadFirst: function () {
+	loadFirst() {
 		let req = jedi.request('3616');
 
 		req.then((data) => {
@@ -54,7 +54,7 @@ export default {
 		});
 	},
 
-	loadBoth: function () {
+	loadBoth() {
 		Promise.all([
 			this.loadTop(true),
 			this.loadBot(true)
@@ -63,7 +63,7 @@ export default {
 		});
 	},
 
-	loadTop: function (wait = false) {
+	loadTop(wait = false) {
 		let [ first, firstIndex, last, lastIndex ] = utils.collectionInfo( this.col )
 		if (first.attributes.master.id == null) return;
 
@@ -77,7 +77,7 @@ export default {
 		});
 	},
 
-	loadBot: function (wait = false) {
+	loadBot(wait = false) {
 		let [ first, firstIndex, last, lastIndex ] = utils.collectionInfo( this.col )
 		if (last.attributes.apprentice.id == null) return;
 
@@ -91,7 +91,7 @@ export default {
 		});
 	},
 
-	stop: function () {
+	stop() {
 		jedi.cancelAll();
 	}
 };

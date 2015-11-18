@@ -3,14 +3,14 @@ import itemView  from './item-view.js'
 import ev from './../utils/events.js'
 
 var SithCollectionView = Backbone.View.extend({
-	initialize: function() {
+	initialize() {
 		this.listenTo(this.collection, "add reset change", this.render);
 		this.listenTo(this.collection, "add", this.collection.sort.bind(this.collection));
 
 		this.render();
 	},
 
-	render: function() {
+	render() {
 		// Clear out this element.
 		this.$el.empty();
 

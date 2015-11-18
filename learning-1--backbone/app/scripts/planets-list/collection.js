@@ -6,7 +6,7 @@ import CollectionView from './collection-view.js'
 let Collection = Backbone.Collection.extend({
 	model: itemModel,
 
-	comparator: function(itemA, itemB) {
+	comparator(itemA, itemB) {
 		var a = itemA.get('id');
 		var b = itemB.get('master').id;
 

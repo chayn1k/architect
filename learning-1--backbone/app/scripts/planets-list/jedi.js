@@ -4,7 +4,7 @@ import arrows from './arrows.js'
 var requests = [];
 
 export default {
-	request: function (id) {
+	request(id) {
 		let _get = $.get('http://jedi.smartjs.academy/dark-jedis/' + id, (data) => {
 			requests.shift();
 			return data;
@@ -12,13 +12,13 @@ export default {
 		requests.push(_get);
 		return _get;
 	},
-	requestMaster: function (model) {
+	requestMaster(model) {
 		return this.request(model.master.id);
 	},
-	requestApprentice: function (model) {
+	requestApprentice(model) {
 		return this.request(model.apprentice.id);
 	},
-	cancelAll: function () {
+	cancelAll() {
 		requests.forEach((item) => {
 			item.abort();
 		});

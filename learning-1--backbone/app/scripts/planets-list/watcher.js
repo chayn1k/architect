@@ -3,22 +3,22 @@ import ev from './../utils/events.js'
 let lastPlanet = '';
 
 export default {
-	init: function (col) {
+	init(col) {
 		this.col = col;
 		this.subscribe();
 		return this;
 	},
-	subscribe: function () {
+	subscribe() {
 		ev.on("change-planet update-jedi-list", this.updatePlanet.bind(this));
 	},
-	findCombination: function (name) {
+	findCombination(name) {
 		return this.col.filter((item) => {
 			let cond = item.attributes.homeworld.name === name;
 			return cond;
 		});
 	},
 
-	updatePlanet: function (newPlanetName = lastPlanet) {
+	updatePlanet(newPlanetName = lastPlanet) {
 		lastPlanet = newPlanetName;
 
 		let findedItems = this.findCombination(newPlanetName);

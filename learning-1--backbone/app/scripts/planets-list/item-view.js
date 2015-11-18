@@ -4,12 +4,12 @@ let itemView = Backbone.View.extend({
 	tagName: "li",
 	className: "css-slot",
 
-	initialize: function () {
+	initialize() {
 		this.listenTo(this.model, "change", this.render);
 		this.render();
 	},
 
-	render: function () {
+	render() {
 		let html;
 		let model = this.model.toJSON();
 

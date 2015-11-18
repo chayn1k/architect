@@ -3,7 +3,7 @@ import ev from './../utils/events.js'
 import utils from '../utils/utils.js'
 
 export default {
-	init: function (col) {
+	init(col) {
 		this.col = col;
 
 		this.$up = $('.js-up');
@@ -16,21 +16,21 @@ export default {
 
 		ev.on('arrows:check', this.checkButtons.bind(this));
 	},
-	up: function () {
+	up() {
 		this.col.pop();
 		this.col.pop();
 		this.col.add([ {}, {} ], {at: 0});
 
 		ev.trigger('arrow:up');
 	},
-	down: function () {
+	down() {
 		this.col.shift();
 		this.col.shift();
 		this.col.add([ {}, {} ]);
 
 		ev.trigger('arrow:down');
 	},
-	checkButtons: function () {
+	checkButtons() {
 		let [ first, firstIndex, last, lastIndex ] = utils.collectionInfo( this.col )
 
 		this.disable('none');
@@ -44,7 +44,7 @@ export default {
 		else if (last.attributes.apprentice.id === null) this.disable('bot');
 
 	},
-	disable: function (what) {
+	disable(what) {
 		switch (what) {
 			case 'top':
 				this.$up.prop( 'disabled', true );
